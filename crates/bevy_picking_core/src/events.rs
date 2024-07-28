@@ -562,6 +562,10 @@ pub fn send_drag_over_events(
                     |&&drag_target| target != drag_target, /* can't drag over itself */
                 )
             {
+                drag_over_map
+                    .get_mut(&(pointer_id, button))
+                    .and_then(|drag_entry| drag_entry.insert(target, hit.clone()));
+
                 pointer_drag_over.send(Pointer::new(
                     pointer_id,
                     pointer_location.clone(),
